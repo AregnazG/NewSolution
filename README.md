@@ -6,7 +6,7 @@ User authentication Logic and Session redirect
 
 We have some users in our database added with MySQL insert into query.
 Our users table has columnes id | username (char) | password (char).
-Username must have max 10 characters, and password must have min 6 and max 10 characters.
+Username must have max 10 characters, and password must have min 6 and max 8 characters.
 
 We must to authentication with Laravel Auth Facade or custom with hand.
 We don't have to use any Laravel package (Breeze, Sanctum ect.).
