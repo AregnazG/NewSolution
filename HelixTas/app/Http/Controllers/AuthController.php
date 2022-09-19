@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
 
 class AuthController extends Controller
 {
@@ -36,6 +37,8 @@ class AuthController extends Controller
         if($user->password == $password) {
 
             Auth::login($user);
+
+            $request->session()->put('lifeTime', Carbon::now()->timestamp);
 
             return redirect('profile');
 

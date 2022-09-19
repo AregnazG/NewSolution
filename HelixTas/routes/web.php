@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +23,14 @@ Route::get('/', function () {
 Route::controller(AuthController::class)->group(function (){
 
     Route::get('login', 'index')->name('login');
-    Route::get('profile', 'profile')->middleware('user.auth.check');
     Route::post('post-login', 'postLogin')->name('login.post');
+
+    Route::get('/profile', function () {
+        if (session('lifeTime') + 60 <= Carbon::now()->timestamp) {
+            Auth::logout();
+            return redirect()->route('login');
+        }
+        return view('auth.profile');
+    })->name('profile')->middleware('user.auth.check');
 
 });
